@@ -7,8 +7,6 @@ Gebruik het <style> element in het bestand van het component, waar ook wat hints
 
 */
 
-
-
 body {
 	/* Je kunt de volgende FDND kleuren gebruiken in je code */
 	--purple: #A675F5;
@@ -16,14 +14,22 @@ body {
 	--blue-50: rgba(5, 5, 66, 0.5);
 	--green: #66E5BF;
 	--yellow: #FFFC86;
+	--white: #FFFFFF;
 
 	font-family: 'Open Sans', sans-serif;
 	line-height: 1.6;
 }
 
+section{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 h1 {
 	margin: 0;
 	letter-spacing: -0.05em;
+	font-size: 5em
 }
 
 .fdnd-nav a {
