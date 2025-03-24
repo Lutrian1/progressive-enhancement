@@ -63,7 +63,7 @@
 					<!-- Hint: hoeveel verschillende ratings kun je geven? -->
 
 					<!-- Hint: of is dit met één formulierelement te maken? -->
-					<button class="fdnd-button">Send Rating</button>
+					<input type="submit" value="Send Rating!" class="fdnd-button"/>
 				</form>
 
 			</section>
@@ -78,7 +78,7 @@
 		</footer>
 	</body>
 	<script>
-		const button = document.querySelector('button');
+		const button = document.querySelector(".fdnd-button");
 
 		button.addEventListener('click', function () {
 			console.log("Verstuurd!")
