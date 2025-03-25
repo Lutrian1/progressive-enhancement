@@ -14,7 +14,12 @@
             max-width: 1500px;
         }
         .invoer-file {
-            display: none;
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
         }
         label {
             border: solid;
@@ -30,47 +35,114 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
+
         .fdnd-button {
             margin-top: 0.5em;
             width: 100px;
         }
+        
+        .preview-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .preview-image {
             display: none;
             object-fit: cover;
             width: 100%;
             height: 100%;
         }
+        
         .preview-text {
             position: absolute;
+            z-index: 1;
             pointer-events: none;
         }
-        .has-preview .preview-image {
+        
+        .preview-active .preview-image {
             display: block;
         }
-        .has-preview .preview-text {
-            display: none;
-        }
     </style>
-    <script>
+    <script type="module">
         document.addEventListener('DOMContentLoaded', () => {
             const label = document.querySelector('label');
             const fileInput = document.getElementById('file');
+            
+            // Create preview structure
+            const previewContainer = document.createElement('div');
+            previewContainer.className = 'preview-container';
+            
             const previewImage = document.createElement('img');
             previewImage.className = 'preview-image';
-            label.prepend(previewImage);
             
-            fileInput.addEventListener('change', () => {
-                const file = fileInput.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    previewImage.src = URL.createObjectURL(file);
-                    label.classList.add('has-preview');
+            const previewText = document.createElement('span');
+            previewText.className = 'preview-text';
+            previewText.textContent = 'Selecteer een afbeelding';
+            
+            label.innerHTML = '';
+            label.appendChild(previewContainer);
+            previewContainer.appendChild(previewImage);
+            previewContainer.appendChild(previewText);
+            
+            // Reset file input value to handle same file selection
+            function resetFileInput() {
+                fileInput.value = '';
+            }
+            
+            function handleFileSelection(files) {
+                label.classList.remove('preview-active', 'has-preview', 'drag-over');
+                
+                if (files && files.length > 0) {
+                    const file = files[0];
+                    
+                    if (file.type.startsWith('image/')) {
+                        const imageUrl = URL.createObjectURL(file);
+                        previewImage.onload = () => {
+                            URL.revokeObjectURL(imageUrl);
+                            label.classList.add('preview-active', 'has-preview');
+                        };
+                        previewImage.src = imageUrl;
+                        resetFileInput(); // Reset after successful selection
+                    }
+                }
+            }
+            
+            // Improved file input change handler
+            fileInput.addEventListener('change', (event) => {
+                handleFileSelection(event.target.files);
+            });
+            
+            // Drag and drop functionality
+            ['dragover', 'dragenter'].forEach(event => {
+                label.addEventListener(event, (e) => {
+                    e.preventDefault();
+                    label.classList.add('drag-over');
+                });
+            });
+            
+            ['dragleave', 'dragend'].forEach(event => {
+                label.addEventListener(event, () => {
+                    label.classList.remove('drag-over');
+                });
+            });
+            
+            label.addEventListener('drop', (e) => {
+                e.preventDefault();
+                label.classList.remove('drag-over');
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelection(e.dataTransfer.files);
                 }
             });
             
-            // Optional: Clean up object URL when image loads
-            previewImage.addEventListener('load', () => {
-                URL.revokeObjectURL(previewImage.src);
+            label.addEventListener('click', () => {
+                fileInput.click();
             });
         });
     </script>
@@ -80,9 +152,7 @@
 
     <form method="post">
         <input type="file" name="file" id="file" class="invoer-file" accept="image/*" />
-        <label for="file">
-            <span class="preview-text">Selecteer een afbeelding</span>
-        </label>
+        <label for="file">Selecteer een afbeelding</label>
         <button type="submit" class="fdnd-button">Uploaden</button>
     </form>
 
