@@ -12,12 +12,139 @@
 			/* Hint: Dit component kun je volledig met HTML en CSS bouwen */
 
 			/* Hint: Denk aan de states van het component; deze kan open en dicht zijn */
+			details {
+				margin-bottom: 1em;
+					summary {
+						padding: 10px 10px;
+						width: fit-content;
+						border: 2px solid black;	
+						border-radius: 5px;
+						cursor: pointer;
+						list-style-type: '＋';
+					}
+					p {
+						border-radius: 5px;
+						padding: 15px;
+						margin: 0;
+					}
+			}
+
+			@supports(details:open){
+				details:open {
+					summary {
+						list-style-type: '✖';
+					}
+				}
+			}
+			
+			/* Als de browser de :open tag niet support*/
+			details[open] {
+				summary {
+					list-style-type: '✖';;
+				}
+			}
+
+			@supports(d1:open){
+				.d1:open{
+					summary, p{
+							border: none;
+							background-color: var(--purple);
+						}
+						summary{
+							/* top-left | top-right | bottom-right | bottom-left */
+							border-radius: 5px 5px 0 0;
+						}
+						p{
+							/* top-left | top-right | bottom-right | bottom-left */
+							border-radius: 0px 5px 5px 5px;
+						}
+				}
+			}
+
+			.d1[open]{
+					summary, p{
+						border: none;
+						background-color: var(--purple);
+					}
+					summary{
+						/* top-left | top-right | bottom-right | bottom-left */
+						border-radius: 5px 5px 0 0;
+					}
+					p{
+						/* top-left | top-right | bottom-right | bottom-left */
+						border-radius: 0px 5px 5px 5px;
+					}
+			}
+
+			@supports (d2:open){
+				.d2:open{
+					summary, p{
+							border: none;
+							background-color: var(--green);
+						}
+						summary{
+							/* top-left | top-right | bottom-right | bottom-left */
+							border-radius: 5px 5px 0 0;
+						}
+						p{
+							/* top-left | top-right | bottom-right | bottom-left */
+							border-radius: 0px 5px 5px 5px;
+						}
+				}
+			}
+
+			.d2[open]{
+					summary, p{
+						border: none;
+						background-color: var(--green );
+					}
+					summary{
+						/* top-left | top-right | bottom-right | bottom-left */
+						border-radius: 5px 5px 0 0;
+					}
+					p{
+						/* top-left | top-right | bottom-right | bottom-left */
+						border-radius: 0px 5px 5px 5px;
+					}
+			}
+
+			@supports (d3:open){
+				.d3:open{
+					summary, p{
+							border: none;
+							background-color: var(--yellow);
+						}
+						summary{
+							/* top-left | top-right | bottom-right | bottom-left */
+							border-radius: 5px 5px 0 0;
+						}
+						p{
+							/* top-left | top-right | bottom-right | bottom-left */
+							border-radius: 0px 5px 5px 5px;
+						}
+				}
+			}
+
+			.d3[open]{
+					summary, p{
+						border: none;
+						background-color: var(--yellow );
+					}
+					summary{
+						/* top-left | top-right | bottom-right | bottom-left */
+						border-radius: 5px 5px 0 0;
+					}
+					p{
+						/* top-left | top-right | bottom-right | bottom-left */
+						border-radius: 0px 5px 5px 5px;
+					}
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Veelgestelde vragen</h1>
 
-		<details>
+		<details class="d1">
 			<summary>Wat is frontend development?</summary>
 			<p>
 				Een frontend developer ontwerpt en bouwt websites in HTML, CSS en JavaScript. 
@@ -25,7 +152,7 @@
 			</p>
 		</details>
 
-		<details>
+		<details class="d2">
 			<summary>Moet ik al kunnen coderen?</summary>
 			<p>
 				Nee, je hebt helemaal geen voorkennis nodig om te beginnen aan deze opleiding,
@@ -34,7 +161,7 @@
 			</p>
 		</details>
 
-		<details>
+		<details class="d3">
 			<summary>Wat is een Associate Degree?</summary>
 			<p>
 				Een Associate degree-opleiding is een tweejarige hbo-opleiding op niveau 5. 
