@@ -7,6 +7,44 @@
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 		<link href="assets/styles.css" rel="stylesheet">
 		<style>
+			/* Schrijf hier gewoon je CSS voor dit component */
+
+			/* Hint: Denk niet te ingewikkeld */
+			form{
+				display: flex;
+				flex-direction: column;
+				margin: 0.5em;
+			}
+			.label-header{
+				font-size: 1.25em;
+				font-weight: 700;
+			}
+			.invoer-file { /* Verwijderd de input-file die je met standaard HTML krijgt*/
+				width: 0.1px;
+				height: 0.1px;
+				opacity: 0;
+				overflow: hidden;
+				position: absolute;
+				z-index: -1;
+			}
+			label {
+				border: solid;
+				border-radius: 10px;
+				font-size: 1.25em;
+				font-weight: 700;
+				height: 20em;
+				width: 100%; /* Give it some width */
+				background-color: var(--green);
+				cursor: pointer;
+				display: flex;
+				align-items: center; /* Vertical centering */
+				justify-content: center; /* Horizontal centering */
+			}
+			
+			.fdnd-button{
+				margin-top: 0.5em;
+				width: 100px;
+			}
 		</style>
 		<script type="module">
 			/* Schrijf hier eventueel je client-side JavaScript */
@@ -20,6 +58,11 @@
 
 			/* Hint: Via JS kun je Custom Properties in CSS aanpassen
 			   https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty */
+			   let label = document.querySelector('label')
+
+					label.addEventListener('click', function () {
+					});
+
 		</script>
 	</head>
 	<body>
