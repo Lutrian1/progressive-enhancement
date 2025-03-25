@@ -1,89 +1,96 @@
 <!doctype html>
 <html lang="nl">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
-		<title>File upload met preview / Progressive Enhancement / FDND</title>
-		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-		<link href="assets/styles.css" rel="stylesheet">
-		<style>
-			/* Schrijf hier gewoon je CSS voor dit component */
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>File upload met preview / Progressive Enhancement / FDND</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="assets/styles.css" rel="stylesheet">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            margin: 0.5em;
+            max-width: 1500px;
+        }
+        .invoer-file {
+            display: none;
+        }
+        label {
+            border: solid;
+            border-radius: 10px;
+            font-size: 1.25em;
+            font-weight: 700;
+            height: 20em;
+            width: 100%;
+            background-color: var(--green);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .fdnd-button {
+            margin-top: 0.5em;
+            width: 100px;
+        }
+        .preview-image {
+            display: none;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+        .preview-text {
+            position: absolute;
+            pointer-events: none;
+        }
+        .has-preview .preview-image {
+            display: block;
+        }
+        .has-preview .preview-text {
+            display: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const label = document.querySelector('label');
+            const fileInput = document.getElementById('file');
+            const previewImage = document.createElement('img');
+            previewImage.className = 'preview-image';
+            label.prepend(previewImage);
+            
+            fileInput.addEventListener('change', () => {
+                const file = fileInput.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    previewImage.src = URL.createObjectURL(file);
+                    label.classList.add('has-preview');
+                }
+            });
+            
+            // Optional: Clean up object URL when image loads
+            previewImage.addEventListener('load', () => {
+                URL.revokeObjectURL(previewImage.src);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>File upload met preview</h1>
 
-			/* Hint: Denk niet te ingewikkeld */
-			form{
-				display: flex;
-				flex-direction: column;
-				margin: 0.5em;
-			}
-			.label-header{
-				font-size: 1.25em;
-				font-weight: 700;
-			}
-			.invoer-file { /* Verwijderd de input-file die je met standaard HTML krijgt*/
-				width: 0.1px;
-				height: 0.1px;
-				opacity: 0;
-				overflow: hidden;
-				position: absolute;
-				z-index: -1;
-			}
-			label {
-				border: solid;
-				border-radius: 10px;
-				font-size: 1.25em;
-				font-weight: 700;
-				height: 20em;
-				width: 100%; /* Give it some width */
-				background-color: var(--green);
-				cursor: pointer;
-				display: flex;
-				align-items: center; /* Vertical centering */
-				justify-content: center; /* Horizontal centering */
-			}
-			
-			.fdnd-button{
-				margin-top: 0.5em;
-				width: 100px;
-			}
-		</style>
-		<script type="module">
-			/* Schrijf hier eventueel je client-side JavaScript */
-			
-			/* Hint: Met een paar regels kom je al een heel eind */
+    <form method="post">
+        <input type="file" name="file" id="file" class="invoer-file" accept="image/*" />
+        <label for="file">
+            <span class="preview-text">Selecteer een afbeelding</span>
+        </label>
+        <button type="submit" class="fdnd-button">Uploaden</button>
+    </form>
 
-			/* Hint: Denk aan Sprint 5, micro-interacties en het driestappenplan:
-			   1) Zoek het element
-			   2) Voeg een event listener toe (https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event misschien?)
-			   3) Doe iets (https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications misschien?) */
-
-			/* Hint: Via JS kun je Custom Properties in CSS aanpassen
-			   https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty */
-			   let label = document.querySelector('label')
-
-					label.addEventListener('click', function () {
-					});
-
-		</script>
-	</head>
-	<body>
-		<h1>File upload met preview</h1>
-
-		<!-- Voor het uploaden van een bestand heb je altijd een formulier nodig.
-		     Dus die krijg je alvast. Maak je over de server niet druk; het gaat om de UI. -->
-		<form method="post">
-			<!-- Hint: Denk niet te ingewikkeld -->
-			<input type="file" name="file" id="file" class="invoer-file" />
-			<label for="file">Selecteer een afbeelding</label>
-
-			<button type="submit" class="fdnd-button">Uploaden</button>
-
-		</form>
-
-		<details open>
-			<summary>Demo video</summary>
-			<video src="assets/file.mp4" width="1496" height="496" controls muted autoplay loop>
-				<a href="assets/file.mp4">assets/file.mp4</a>
-			</video>
-		</details>
-	</body>
+    <details open>
+        <summary>Demo video</summary>
+        <video src="assets/file.mp4" width="1496" height="496" controls muted autoplay loop>
+            <a href="assets/file.mp4">assets/file.mp4</a>
+        </video>
+    </details>
+</body>
 </html>
