@@ -7,9 +7,6 @@
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 		<link href="assets/styles.css" rel="stylesheet">
 		<style>
-			/* Schrijf hier gewoon je CSS voor dit component */
-
-			/* Hint: Denk niet te ingewikkeld */
 		</style>
 		<script type="module">
 			/* Schrijf hier eventueel je client-side JavaScript */
@@ -27,13 +24,18 @@
 	</head>
 	<body>
 		<h1>File upload met preview</h1>
+
 		<!-- Voor het uploaden van een bestand heb je altijd een formulier nodig.
 		     Dus die krijg je alvast. Maak je over de server niet druk; het gaat om de UI. -->
 		<form method="post">
 			<!-- Hint: Denk niet te ingewikkeld -->
+			<input type="file" name="file" id="file" class="invoer-file" />
+			<label for="file">Selecteer een afbeelding</label>
+
 			<button type="submit" class="fdnd-button">Uploaden</button>
 
 		</form>
+
 		<details open>
 			<summary>Demo video</summary>
 			<video src="assets/file.mp4" width="1496" height="496" controls muted autoplay loop>
