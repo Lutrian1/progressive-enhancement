@@ -34,6 +34,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .fdnd-button {
             margin-top: 0.5em;
             width: 100px;
@@ -58,10 +59,12 @@
     </details>
 
     <script>
-        const label = document.querySelector('label');
-        document.getElementById('file').onchange = e => label.style.setProperty('--image', `url(${URL.createObjectURL(e.target.files[0])})`);
-        label.ondragover = e => e.preventDefault();
-        label.ondrop = e => (e.preventDefault(), document.getElementById('file').files = e.dataTransfer.files, label.style.setProperty('--image', `url(${URL.createObjectURL(e.dataTransfer.files[0])})`));
+        document.getElementById('file').addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const url = URL.createObjectURL(this.files[0]);
+                document.querySelector('label').style.setProperty('--image', `url(${url})`);
+            }
+        });
     </script>
 </body>
 </html>
