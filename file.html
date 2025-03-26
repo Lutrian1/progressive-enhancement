@@ -28,35 +28,19 @@
             font-weight: 700;
             height: 20em;
             width: 100%;
-            background: var(--green);
+            background: var(--image, var(--green)) center/cover no-repeat;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            input{
-                width: 100%;
-                position: absolute;
-            }
         }
 
         .fdnd-button {
             margin-top: 0.5em;
             width: 100px;
             cursor: pointer;
-            opacity: 0;
-            inset: 0;
         }
     </style>
-    <script type="module">
-        document.querySelector('input').addEventListener('change' function(){
-            let url = url.createObjectURL(this.files[0]);
-            this.parentNode.style.setProperty(--image)
-
-        });
-    </script>
 </head>
 <body>
     <h1>File upload met preview</h1>
@@ -73,5 +57,23 @@
             <a href="assets/file.mp4">assets/file.mp4</a>
         </video>
     </details>
+
+    <script>
+        document.querySelector('input').addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const url = URL.createObjectURL(this.files[0]);
+                document.querySelector('label').style.setProperty('--image', `url(${url})`);
+            }
+        });
+        /*
+        <script type="module">
+        document.querySelector('input').addEventListener('change' function(){
+            let url = url.createObjectURL(this.files[0]);
+            this.parentNode.style.setProperty(--image)
+
+        });
+        begin krijn code */
+    </script>
+    </script>
 </body>
 </html>
