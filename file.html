@@ -59,7 +59,7 @@
     </details>
 
     <script>
-        document.querySelector('input').addEventListener('change', function(e) {
+        document.querySelector('input').addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 const url = URL.createObjectURL(this.files[0]);
                 document.querySelector('label').style.setProperty('--image', `url(${url})`);
@@ -73,7 +73,6 @@
 
         });
         begin krijn code */
-    </script>
     </script>
 </body>
 </html>
